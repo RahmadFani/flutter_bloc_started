@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:authentication_repository/src/models/model.dart';
 import 'package:cache/cache.dart';
