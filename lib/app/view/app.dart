@@ -1,16 +1,28 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_wallet/app/app.dart';
 import 'package:my_wallet/theme/theme.dart';
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App(
+      {Key? key, required AuthenticationRepository authenticationRepository})
+      : _authenticationRepository = authenticationRepository,
+        super(key: key);
+
+  final AuthenticationRepository _authenticationRepository;
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [BlocProvider<ThemeCubit>(create: (_) => ThemeCubit())],
-        child: const AppView());
+    return RepositoryProvider.value(
+      value: _authenticationRepository,
+      child: MultiBlocProvider(providers: [
+        BlocProvider<AppBloc>(
+            create: (_) =>
+                AppBloc(authenticationRepository: _authenticationRepository)),
+        BlocProvider<ThemeCubit>(create: (_) => ThemeCubit()),
+      ], child: const AppView()),
+    );
   }
 }
 
