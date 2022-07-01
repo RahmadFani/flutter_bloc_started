@@ -40,6 +40,8 @@ dependencies:
     path: packages/authentication_repository
 
 dev_dependencies:
+  bloc_test: ^9.0.0
+  mocktail: ^0.2.0
   flutter_test:
     sdk: flutter
 
