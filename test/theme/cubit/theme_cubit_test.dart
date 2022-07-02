@@ -16,6 +16,14 @@ void main() {
         act: (cubit) => cubit.changeTheme(),
         expect: () => [ThemeData.dark()],
       );
+
+      blocTest<ThemeCubit, ThemeData>(
+        'when Theme Data Change from dark to light',
+        build: () => ThemeCubit(),
+        seed: () => ThemeData.dark(),
+        act: (cubit) => cubit.changeTheme(),
+        expect: () => [ThemeData.light()],
+      );
     });
   });
 }
