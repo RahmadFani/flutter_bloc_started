@@ -44,6 +44,7 @@ class HomePage extends StatelessWidget {
             height: 10,
           ),
           FloatingActionButton(
+            key: const Key('homePage_changeTheme_floatingActionButton'),
             onPressed: () {
               context.read<ThemeCubit>().changeTheme();
             },
