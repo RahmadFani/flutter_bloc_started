@@ -34,13 +34,17 @@ class AuthenticationRepository {
     return _cache.read<User>(key: userCacheKey) ?? User.empty;
   }
 
-  void login() {
-    const user = User(id: '123', name: "fani", email: "rahmadfani@gmail.com");
-    _cache.write(key: userCacheKey, value: user);
-    _controller.add(user);
+  Future<void> login() async {
+    try {
+      const user = User(id: '123', name: "fani", email: "rahmadfani@gmail.com");
+      _cache.write(key: userCacheKey, value: user);
+      _controller.add(user);
+    } catch (e) {
+      throw Error();
+    }
   }
 
-  Future logOut() async {
+  Future<void> logOut() async {
     _cache.write(key: userCacheKey, value: User.empty);
     _controller.add(User.empty);
   }
