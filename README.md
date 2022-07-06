@@ -12,3 +12,8 @@ This project is a starting point for a Flutter application.
 - Logic auth logIn/logOut
 - Clean Arsitektur
 
+#
+
+#### Changes Theme 
+    context.read<ThemeCubit>().changeTheme();
+
