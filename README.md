@@ -1,4 +1,4 @@
-# [Flutter] Flutter strted with bloc
+# Flutter starter template with bloc
 
 Example application flutter template with bloc
 
