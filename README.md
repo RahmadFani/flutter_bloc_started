@@ -14,6 +14,12 @@ This project is a starting point for a Flutter application.
 
 #
 
-#### Changes Theme 
+##### Changes Theme 
     context.read<ThemeCubit>().changeTheme();
 
+##### Login Function
+Needed adding more logic for insert user and password
+    context.read<AuthenticationRepository>().login();
+
+##### Logout Function
+    context.read<AppBloc>().add(AppLogoutRequested());
