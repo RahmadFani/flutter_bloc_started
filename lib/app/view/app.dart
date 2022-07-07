@@ -2,6 +2,9 @@ import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_wallet/app/app.dart';
+import 'package:my_wallet/cart/cart.dart';
+import 'package:my_wallet/location/cubit/location_cubit.dart';
+import 'package:my_wallet/product/cubit/product_cubit.dart';
 import 'package:my_wallet/theme/theme.dart';
 
 class App extends StatelessWidget {
@@ -21,6 +24,9 @@ class App extends StatelessWidget {
             create: (_) =>
                 AppBloc(authenticationRepository: _authenticationRepository)),
         BlocProvider<ThemeCubit>(create: (_) => ThemeCubit()),
+        BlocProvider<ProductCubit>(create: (_) => ProductCubit()..init()),
+        BlocProvider<CartCubit>(create: (_) => CartCubit()),
+        BlocProvider<LocationCubit>(create: (_) => LocationCubit()),
       ], child: const AppView()),
     );
   }
@@ -34,7 +40,7 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeCubit, ThemeData>(builder: (ctx, theme) {
       return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Flutter Shop',
         theme: theme,
         initialRoute: Routes.INITIAL,
         routes: AppPages.pages,
