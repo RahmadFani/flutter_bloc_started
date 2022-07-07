@@ -6,7 +6,7 @@ import 'package:location_repository/location_repository.dart';
 class LocationRepository {
   LocationRepository();
 
-  String apiKey = 'AIzaSyAv-NMNRBz-nOIo4zHZ8O-KnNluzTdzNCQ';
+  String apiKey = 'GOOGLE_API_KEY';
 
   String url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?';
 
