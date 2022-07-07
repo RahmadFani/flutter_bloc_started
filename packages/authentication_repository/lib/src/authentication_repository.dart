@@ -26,6 +26,7 @@ class AuthenticationRepository {
   final StreamController<User> _controller = StreamController<User>();
 
   Stream<User> get user async* {
+    await Future.delayed(const Duration(seconds: 3));
     yield currentUser;
     yield* _controller.stream;
   }
