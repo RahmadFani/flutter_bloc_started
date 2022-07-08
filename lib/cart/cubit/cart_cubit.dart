@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:my_wallet/cart/cart.dart';
 import 'package:product_repository/product_repository.dart';
+import 'package:collection/collection.dart';
 
 part 'cart_state.dart';
 
@@ -8,36 +10,46 @@ class CartCubit extends Cubit<CartState> {
   CartCubit() : super(CartState.initial());
 
   void addProduct(ProductModel product, context) {
-    final products = state.productList;
+    var products = state.productList;
 
-    CartModel data = products
-        .firstWhere((element) => element.product == product, orElse: () {
-      return CartModel(product: product);
-    });
+    CartModel? data =
+        products.firstWhereOrNull((element) => element.product == product);
 
-    if (data.quantity == 0) {
-      products.add(CartModel(product: product, quantity: 1));
+    if (data == null) {
+      emit(CartState(productList: [
+        ...state.productList,
+        CartModel(product: product, quantity: 1)
+      ]));
     } else {
-      products.where((element) => element.product == product).first.quantity++;
+      final changes = products.map((e) {
+        if (e.product == product) {
+          return CartModel(product: product, quantity: e.quantity + 1);
+        }
+        return e;
+      }).toList();
+      emit(state.productChange(changes));
     }
-
-    emit(state.productChange(products));
   }
 
   void removeProduct(ProductModel product, context) {
-    final products = state.productList;
+    var products = state.productList;
 
-    CartModel data = products
-        .firstWhere((element) => element.product == product, orElse: () {
-      return CartModel(product: product);
-    });
+    CartModel? data =
+        products.firstWhereOrNull((element) => element.product == product);
 
-    if (data.quantity == 1) {
-      products.removeWhere((element) => element.product == product);
+    if (data?.quantity == 1) {
+      emit(CartState(
+          productList: [
+        ...state.productList,
+      ]..removeWhere((element) => element.product == product)));
     } else {
-      products.where((element) => element.product == product).first.quantity--;
+      final changes = products.map((e) {
+        if (e.product == product) {
+          return CartModel(product: product, quantity: e.quantity - 1);
+        }
+        return e;
+      }).toList();
+      emit(state.productChange(changes));
     }
-
-    emit(state.productChange(products));
   }
 }

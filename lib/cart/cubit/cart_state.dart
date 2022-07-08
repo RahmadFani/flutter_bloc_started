@@ -1,14 +1,14 @@
 part of 'cart_cubit.dart';
 
-class CartState {
-  const CartState(this.productList);
+class CartState extends Equatable {
+  const CartState({required this.productList});
 
   final List<CartModel> productList;
 
   CartState.initial() : productList = [];
 
   CartState productChange(List<CartModel> productList) {
-    return CartState(productList);
+    return CartState(productList: productList);
   }
 
   int get totalCart => productList.length;
@@ -19,4 +19,10 @@ class CartState {
       0,
       (previousValue, element) =>
           previousValue + element.product.price! * element.quantity);
+
+  @override
+  List<Object?> get props => [productList];
+
+  @override
+  String toString() => 'ProductLoaded { product: ${productList.length}}';
 }
