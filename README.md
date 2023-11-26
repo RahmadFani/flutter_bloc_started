@@ -1,4 +1,4 @@
-# Flutter starter template with bloc (NOT UPDATED MORE)
+# Flutter starter template with bloc (NOT UPDATED MORE) [DEPCREATED]
 
 Example application flutter template with bloc
 
